@@ -9,18 +9,6 @@ jobs:
     if: github.event.repository.owner.id == github.event.sender.id
     env:
       PAT: ${{ secrets.PAT }} #此处PAT需要申请，教程详见：https://www.jianshu.com/p/bb82b3ad1d11,需要repo和workflow权限
-      PUSH_KEY: ${{ secrets.PUSH_KEY}}
-      BARK_PUSH: ${{ secrets.BARK_PUSH}}
-      BARK_SOUND: ${{ secrets.BARK_SOUND}}
-      TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN}}
-      TG_USER_ID: ${{ secrets.TG_USER_ID}}
-      DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN}}
-      DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET}}
-      QYWX_KEY: ${{ secrets.QYWX_KEY}}
-      QYWX_AM: ${{ secrets.QYWX_AM}}
-      IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY}}
-      PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN}}
-      PUSH_PLUS_USER: ${{ secrets.PUSH_PLUS_USER}}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -39,11 +27,9 @@ jobs:
         run: |
           npm i
           npm i -g serverless
-      - name: set env variables
+      - name: set serverless.yml and push env
         working-directory: ./JD_tencent_scf
         env:
-          SECRETS: ${{ toJson(secrets) }}
-          JRBODY_SCF: ${{ secrets.JRBODY_SCF }}
           TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
           TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
           TENCENT_REGION: ${{ secrets.SCF_REGION }}
@@ -62,6 +48,10 @@ jobs:
           cat serverless.yml
           echo -e "TENCENT_SECRET_ID=$TENCENT_SECRET_ID\nTENCENT_SECRET_KEY=$TENCENT_SECRET_KEY" >> .env
           cat .env
+          PUSH_VARIS=$(sed -r 's/(process.env.[a-z0-9A-Z\_]+)/\1\n/g' sendNotify.js | sed -rn 's/.*process.env.([a-z0-9A-Z\_]+).*/\1/p' | sort | uniq)
+          parameter=$(tr "\n" "|" <<< $PUSH_VARIS)
+          parameter=${parameter::-1}
+          grep -E "^($parameter):" < ../config.yml | sed 's/: /=/' | while read line;do    echo $line >> $GITHUB_ENV;done
       - name: Check Visibility
         working-directory: ./JD_tencent_scf
         if: ${{ github.event_name == 'workflow_dispatch' && !github.event.repository.private}}
