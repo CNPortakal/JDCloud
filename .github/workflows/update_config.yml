@@ -1,4 +1,4 @@
-name: Update to Config Deploy(不要运行!除非你知道自己在做什么!) 
+name: Update to Config Deploy(升级到配置文件部署.谨慎执行!) 
 on:
   workflow_dispatch:
 jobs:
