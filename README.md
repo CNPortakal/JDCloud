@@ -3,6 +3,7 @@
 ## 传统Secrets部署方式说明
 1. 变量全部使用Secrets
 2. 无法处理环境变量包含小写字母的!!(所以建议升级到配置文件部署)
+3. JRBODY兼容性较差
 
 ## 此部署方式未来可能大概率会被废弃
 如想升级请阅读配置文件部署的[简略说明](https://github.com/zero205/JD_tencent_scf/blob/scf2/README.md)
