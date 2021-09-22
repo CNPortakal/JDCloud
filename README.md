@@ -1,5 +1,5 @@
 ## 主仓库地址: https://github.com/zero205/JD_tencent_scf/tree/main
-## 当前:传统Secrets部署方式(推荐升级至部署文件部署,升级前请确认自己了解配置文件部署方式)
+## 当前:传统Secrets部署方式(有能力请尽快升级至部署文件部署)
 ## 传统Secrets部署方式说明
 1. 变量全部使用Secrets
 2. 环境变量包含小写字母可能存在兼容问题
