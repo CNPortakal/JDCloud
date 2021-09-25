@@ -67,7 +67,7 @@ jobs:
           if [[ ! -z $TENCENTSCF_MEMORYSIZE ]]; then sed -i -E 's/memorySize:[^\n]+/memorySize: '"$TENCENTSCF_MEMORYSIZE"'/' serverless.yml; fi;
           if [[ ! -z $TENCENT_TIMEOUT ]]; then sed -i -E 's/timeout:[^\n]+/timeout: '"$TENCENT_TIMEOUT"'/' serverless.yml; fi;
           cat serverless.yml
-          echo -e "TENCENT_SECRET_ID=$TENCENT_SECRET_ID\nTENCENT_SECRET_KEY=$TENCENT_SECRET_KEY\nSERVERLESS_PLATFORM_VENDOR=tencent" > .env
+          echo -e "TENCENT_SECRET_ID=$TENCENT_SECRET_ID\nTENCENT_SECRET_KEY=$TENCENT_SECRET_KEY\nSERVERLESS_PLATFORM_VENDOR=tencent\nGLOBAL_ACCELERATOR_NA=true" > .env
           cat .env
       - name: Check Visibility
         working-directory: ./JD_tencent_scf
