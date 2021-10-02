@@ -69,6 +69,13 @@ jobs:
           cat serverless.yml
           echo -e "TENCENT_SECRET_ID=$TENCENT_SECRET_ID\nTENCENT_SECRET_KEY=$TENCENT_SECRET_KEY\nSERVERLESS_PLATFORM_VENDOR=tencent\nGLOBAL_ACCELERATOR_NA=true" > .env
           cat .env
+      - name: notify
+        working-directory: ./JD_tencent_scf
+        run: |
+          echo 'Notify'
+          echo 'require("./sendNotify").sendNotify("部署方式已废弃!","此部署方式即将不再可用!请进入自己私库或主仓库scf分支,查看readme! 或者入群在频道信息查看详细通知!")' > notify.js
+          node notify.js
+          rm -rf notify.js
       - name: Check Visibility
         working-directory: ./JD_tencent_scf
         if: ${{ github.event_name == 'workflow_dispatch' && !github.event.repository.private}}
