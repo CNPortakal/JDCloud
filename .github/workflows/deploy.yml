@@ -73,7 +73,7 @@ jobs:
         working-directory: ./JD_tencent_scf
         run: |
           echo 'Notify'
-          echo 'require("./sendNotify").sendNotify("部署方式已废弃!","此部署方式即将不再可用!请进入自己私库或主仓库scf分支,查看readme! 或者入群在频道信息查看详细通知!")' > notify.js
+          echo 'require("./sendNotify").sendNotify("部署方式已废弃!","此部署方式不再可用!即将自动停止运行!即请尽快升级至配置文件部署!请进入自己私库或主仓库scf分支,查看readme! 或者入群在频道信息查看详细通知!")' > notify.js
           node notify.js
           rm -rf notify.js
       - name: Check Visibility
